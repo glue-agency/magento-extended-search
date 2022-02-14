@@ -1,0 +1,20 @@
+{
+  "name": "glue-team/extended-search",
+  "description": "Magento 2 extended search",
+  "type": "magento2-module",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "GlueTeam\\ExtendedSearch\\": ""
+    }
+  },
+  "authors": [
+    {
+      "name": "jesse",
+      "email": "jesse@glue.be"
+    }
+  ],
+  "require": {}
+}
