@@ -2,6 +2,6 @@
 
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Glue_ExtendedSearch',
+    'GlueTeam_ExtendedSearch',
     __DIR__
 );

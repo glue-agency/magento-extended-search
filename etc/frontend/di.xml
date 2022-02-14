@@ -4,7 +4,7 @@
     <type name="Magento\Search\Model\Autocomplete">
         <arguments>
             <argument name="dataProviders" xsi:type="array">
-                <item name="50" xsi:type="object">Glue\ExtendedSearch\Model\Autocomplete\DataProvider</item>
+                <item name="50" xsi:type="object">GlueTeam\ExtendedSearch\Model\Autocomplete\DataProvider</item>
             </argument>
         </arguments>
     </type>
