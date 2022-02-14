@@ -109,6 +109,9 @@ class DataProvider implements DataProviderInterface
 
         $result = $this->graphql_query($endpoint, $query, ['search' => $searchQuery, 'limit' => $limit]);
         
+        if (!isset($result['data'])) {
+            return false;
+        }
         return $result['data']['entries'];
     }
 
