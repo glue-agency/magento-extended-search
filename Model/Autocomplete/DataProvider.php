@@ -12,7 +12,7 @@
  * @license   Open Software License ("OSL") v. 3.0
  */
 
-namespace Glue\ExtendedSearch\Model\Autocomplete;
+namespace GlueTeam\ExtendedSearch\Model\Autocomplete;
 
 use Magento\Search\Model\Autocomplete\DataProviderInterface;
 use Magento\Search\Model\QueryFactory;
