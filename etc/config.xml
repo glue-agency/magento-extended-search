@@ -4,6 +4,7 @@
         <extended_search>
             <general>
                 <api_endpoint>https://change-me-craft-url.com/api</api_endpoint>
+                <result_limit>5</result_limit>
             </general>
         </extended_search>
     </default>

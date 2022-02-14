@@ -1,16 +1,4 @@
 <?php
-/**
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Smile Elastic Suite to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\ElasticsuiteRetailer
- * @author    Fanny DECLERCK <fadec@smile.fr>
- * @copyright 2018 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
 
 namespace GlueTeam\ExtendedSearch\Model\Autocomplete;
 
@@ -20,11 +8,7 @@ use Magento\Search\Model\Autocomplete\ItemFactory;
 use Magento\Framework\Data\CollectionFactory;
 
 /**
- * Retailer autocomplete data provider.
- *
- * @category Smile
- * @package  Smile\ElasticsuiteRetailer
- * @author   Fanny DECLERCK <fadec@smile.fr>
+ * Craft content autocomplete provider.
  */
 class DataProvider implements DataProviderInterface
 {
@@ -50,6 +34,7 @@ class DataProvider implements DataProviderInterface
      * @var CollectionFactory
      */
     protected $collectionFactory;
+    protected $helperData;
     /**
      * @var string Autocomplete result type
      */
@@ -63,16 +48,19 @@ class DataProvider implements DataProviderInterface
      * @param string $type Autocomplete provider type.
      */
     public function __construct(
-        ItemFactory       $itemFactory,
-        QueryFactory      $queryFactory,
-        CollectionFactory $collectionFactory,
-        string            $type = self::AUTOCOMPLETE_TYPE
+        ItemFactory                          $itemFactory,
+        QueryFactory                         $queryFactory,
+        CollectionFactory                    $collectionFactory,
+        \GlueTeam\ExtendedSearch\Helper\Data $helperData,
+        string                               $type = self::AUTOCOMPLETE_TYPE
     )
     {
         $this->itemFactory       = $itemFactory;
         $this->queryFactory      = $queryFactory;
         $this->type              = $type;
         $this->collectionFactory = $collectionFactory;
+        $this->helperData        = $helperData;
+
     }
 
     /**
@@ -106,11 +94,12 @@ class DataProvider implements DataProviderInterface
     private function getCraftContent()
     {
         $searchQuery = $this->queryFactory->get()->getQueryText();
-        $endpoint    = "https://craft-prod.zowizoo.hypernode.io/api";
+        $endpoint    = $this->helperData->getGeneralConfig('api_endpoint');
+        $limit       = (int) $this->helperData->getGeneralConfig('result_limit');
 
         $query = <<<'GRAPHQL'
-        query Entries($search: String!) {
-           entries(limit: 5, search: $search) {
+        query Entries($search: String!, $limit: Int) {
+           entries(limit: $limit, search: $search) {
             title
             url
             typeHandle
@@ -118,8 +107,8 @@ class DataProvider implements DataProviderInterface
         }
         GRAPHQL;
 
-        $result = $this->graphql_query($endpoint, $query, ['search' => $searchQuery]);
-
+        $result = $this->graphql_query($endpoint, $query, ['search' => $searchQuery, 'limit' => $limit]);
+        
         return $result['data']['entries'];
     }
 
