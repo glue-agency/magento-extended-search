@@ -1,5 +1,5 @@
 {
-  "name": "glue/extended-search",
+  "name": "glue/magento-extended-search",
   "description": "Magento 2 extended search",
   "type": "magento2-module",
   "autoload": {
